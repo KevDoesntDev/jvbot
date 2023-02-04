@@ -8,13 +8,13 @@ std::shared_ptr<ChassisController> chassis =
 
 std::shared_ptr<XDriveModel> driveTrain = std::dynamic_pointer_cast<XDriveModel>(chassis->getModel());
 
-
 void DrivetrainControl(void *_) {
     driveTrain->setBrakeMode(AbstractMotor::brakeMode::coast);
 
     while (true) {
-        driveTrain->xArcade(controller.getAnalog(ControllerAnalog::leftX), controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX), 0);
+        driveTrain->fieldOrientedXArcade(controller.getAnalog(ControllerAnalog::leftX), controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX), inertial.get() * degree, 0);
 
         pros::delay(20);
+    
     }
 }
