@@ -1,7 +1,9 @@
 #include "main.h"
 
 Motor catapult(19, false, AbstractMotor::gearset::red, AbstractMotor::encoderUnits::degrees);
-Motor intake(18, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+MotorGroup intake(
+    {Motor(18, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees), 
+    Motor(10, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees)});
 
 void DevicesControl(void* _) {
     catapult.setBrakeMode(AbstractMotor::brakeMode::hold);

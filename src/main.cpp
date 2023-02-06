@@ -3,6 +3,14 @@
 /* Globals */
 Controller controller(ControllerId::master);
 
+std::shared_ptr<ChassisController> chassis = 
+    ChassisControllerBuilder()
+        .withMotors(-15, 12, 11, -14)
+        .withDimensions(AbstractMotor::gearset::green, {{4_in, 12_in}, imev5GreenTPR})
+        .build();
+
+std::shared_ptr<XDriveModel> driveTrain = std::dynamic_pointer_cast<XDriveModel>(chassis->getModel());
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -42,7 +50,17 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	driveTrain->stop();
+
+	driveTrain->driveVectorVoltage(-15, 0);
+	pros::delay(10);
+	driveTrain->stop();
+
+	intake.moveVoltage(12000);
+	pros::delay(750);
+	intake.moveVoltage(0);
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task

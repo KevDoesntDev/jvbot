@@ -81,6 +81,7 @@ void opcontrol(void);
 
 #include "devices.hpp"
 #include "tasks.hpp"
+#include "drivetrain.hpp"
 
 #endif  // _PROS_MAIN_H_
   
